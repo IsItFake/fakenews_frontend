@@ -1,30 +1,49 @@
 import * as React from "react";
+import { FormEventHandler } from "react";
 
 import BaseComponent from "../BaseComponent";
+import ResultSet from "./ResultSet/ResultSet";
 
 const styles: any = require("./Results.component.less");
+const inputKey = "testURL";
 
-interface IResultSetProps extends React.Props<{}> {
-    fakeChance: number;
-    fakeStatus: string;
-    newsSource: string;
-    siteLink: string;
-}
+export default class Results extends BaseComponent<null, {
+    fakeURL ?: string,
+}> {
+    constructor() {
+        super();
+        this.state = {
+            fakeURL: "",
+        };
+    }
 
-interface IResultsProps extends React.Props<{}> {
-    results: boolean;
-}
+    getResultSet(): void {
+        const bob = "";
+    }
 
-export default class Results extends BaseComponent<IResultsProps, {}> {
     doRender(): React.ReactElement<{}> {
-        if (this.props.results) {
-            return (
-                <div className={styles.wrapper}>
-                    Results
-                </div>
-            );
-        }
+        const handleSubmit = (e: React.FormEvent<{
+            fakeURL?: string,
+        }>) => {
+            e.preventDefault();
+            const fakeURL = (this.refs[inputKey] as any as HTMLInputElement).value.trim();
+            this.setState({fakeURL});
+        };
 
-        return <div className={styles.wrapper}>&nbsp;</div>;
+        return (
+            <div className={styles.wrapper}>
+                <div className={styles.container}>
+                    <form method="get" onSubmit={handleSubmit}>
+                        <label htmlFor="fakeInput">URL to Test:</label>
+                        <input type="text" name={inputKey} placeholder="http://www.fakenews.xyz" ref={inputKey} />
+                        <button type="submit">
+                            Fake ??
+                        </button>
+                    </form>
+                </div>
+                <hr />
+                <ResultSet resultString={this.state.fakeURL} />
+            </div>
+        );
     }
 }

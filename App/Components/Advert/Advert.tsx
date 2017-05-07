@@ -3,13 +3,11 @@ import BaseComponent from "../BaseComponent";
 
 const styles: any = require("./Advert.component.less");
 
-interface IAdvertProps extends React.Props<{}> {
-    title: string;
-    content: string;
-    id: string;
-}
-
-export default class Advert extends BaseComponent<IAdvertProps, {}> {
+export default class Advert extends BaseComponent<{
+    title: string,
+    content: string,
+    id: string,
+}, {}> {
     doRender(): React.ReactElement<{}> {
         return (
             <div className={styles.wrapper} id={this.props.id}>

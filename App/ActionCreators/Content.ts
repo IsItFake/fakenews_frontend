@@ -1,13 +1,13 @@
 import {
-    contentLoadAction,
-    ContentLoadActionPayload,
+    contentLoad,
+    ContentLoadPayload,
 } from "../Actions/ContentLoad";
 
-export function loadContent(): ReduxActions.Action<ContentLoadActionPayload> {
+export function loadContent(): ReduxActions.Action<ContentLoadPayload> {
     const title: string = "Is It Fake ??";
     const summary: string = "Test";
 
-    return contentLoadAction({
+    return contentLoad({
         title,
         summary,
     });

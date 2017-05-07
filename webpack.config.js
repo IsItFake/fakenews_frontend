@@ -67,7 +67,7 @@ const config = {
             },
             {
                 test: /\.less$/,
-                exclude: /\.component\.less$/,
+                exclude: /\.module\.less$/,
                 loaders: [
                     "style-loader",
                     "css-loader?minimize&importLoaders=1&localIdentName=[name]_[local]__[hash:base64:5]",

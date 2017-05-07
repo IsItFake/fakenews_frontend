@@ -9,13 +9,14 @@ import { connect } from "react-redux";
 import BaseComponent from "./../BaseComponent";
 import Header from "./Header/Header";
 import BodyWrapper from "./BodyWrapper/BodyWrapper";
+import Footer from "./Footer/Footer";
 const styles = require("./ContentPage.component.less");
 let ContentPage = class ContentPage extends BaseComponent {
     doRender() {
         return (React.createElement("div", { className: styles.container },
             React.createElement(Header, { isActive: true, title: "Is It Fake ??" }),
-            React.createElement(BodyWrapper, { ref: "contentBodyRef", title: this.props.bodyTitle },
-                React.createElement("div", { className: styles.message }, "Tester"))));
+            React.createElement(BodyWrapper, { ref: "contentBodyRef", title: this.props.bodyTitle }),
+            React.createElement(Footer, null)));
     }
 };
 ContentPage = __decorate([

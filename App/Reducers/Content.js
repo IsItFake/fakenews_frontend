@@ -1,11 +1,11 @@
 import { handleActions } from "redux-actions";
-import { CONTENT_LOAD_ACTION } from "./../Actions/ContentLoad";
+import { CONTENT_LOAD } from "./../Actions/ContentLoad";
 const initialState = {
     title: "",
     summary: "",
 };
 export default handleActions({
-    [CONTENT_LOAD_ACTION]: (state, action) => {
+    [CONTENT_LOAD]: (state, action) => {
         return {
             title: action.payload.title ? action.payload.title.toUpperCase() : "",
             summary: action.payload.summary,

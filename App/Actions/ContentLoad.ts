@@ -1,10 +1,10 @@
 import {createAction} from "redux-actions";
 
-export const CONTENT_LOAD_ACTION = "ContentLoadAction";
+export const CONTENT_LOAD = "ContentLoad";
 
-export interface ContentLoadActionPayload {
+export interface ContentLoadPayload {
     title: string;
     summary: string;
 }
 
-export const contentLoadAction = createAction<ContentLoadActionPayload, ContentLoadActionPayload>(CONTENT_LOAD_ACTION, undefined);
+export const contentLoad = createAction<ContentLoadPayload, ContentLoadPayload>(CONTENT_LOAD, undefined);

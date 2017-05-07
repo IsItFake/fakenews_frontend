@@ -1,7 +1,7 @@
 // https://babeljs.io/docs/plugins/external-helpers/
 
 (function (global) {
-    var babelHelpers = global.babelHelpers = {};
+    let babelHelpers = global.babelHelpers = {};
     babelHelpers.typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
         return typeof obj;
     } : function (obj) {
@@ -9,17 +9,17 @@
     };
 
     babelHelpers.jsx = function () {
-        var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7;
+        let REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7;
         return function createRawReactElement(type, props, key, children) {
-            var defaultProps = type && type.defaultProps;
-            var childrenLength = arguments.length - 3;
+            let defaultProps = type && type.defaultProps;
+            let childrenLength = arguments.length - 3;
 
             if (!props && childrenLength !== 0) {
                 props = {};
             }
 
             if (props && defaultProps) {
-                for (var propName in defaultProps) {
+                for (let propName in defaultProps) {
                     if (props[propName] === void 0) {
                         props[propName] = defaultProps[propName];
                     }
@@ -31,9 +31,9 @@
             if (childrenLength === 1) {
                 props.children = children;
             } else if (childrenLength > 1) {
-                var childArray = Array(childrenLength);
+                const childArray = new Array(childrenLength);
 
-                for (var i = 0; i < childrenLength; i++) {
+                for (let i = 0; i < childrenLength; i++) {
                     childArray[i] = arguments[i + 3];
                 }
 
@@ -54,8 +54,8 @@
     babelHelpers.asyncIterator = function (iterable) {
         if (typeof Symbol === "function") {
             if (Symbol.asyncIterator) {
-                var method = iterable[Symbol.asyncIterator];
-                if (method != null) return method.call(iterable);
+                let method = iterable[Symbol.asyncIterator];
+                if (method !== null) return method.call(iterable);
             }
 
             if (Symbol.iterator) {
@@ -72,11 +72,11 @@
         }
 
         function AsyncGenerator(gen) {
-            var front, back;
+            let front, back;
 
             function send(key, arg) {
                 return new Promise(function (resolve, reject) {
-                    var request = {
+                    let request = {
                         key: key,
                         arg: arg,
                         resolve: resolve,
@@ -95,8 +95,8 @@
 
             function resume(key, arg) {
                 try {
-                    var result = gen[key](arg);
-                    var value = result.value;
+                    let result = gen[key](arg);
+                    let value = result.value;
 
                     if (value instanceof AwaitValue) {
                         Promise.resolve(value.value).then(function (arg) {
@@ -180,7 +180,7 @@
     }();
 
     babelHelpers.asyncGeneratorDelegate = function (inner, awaitWrap) {
-        var iter = {},
+        let iter = {},
             waiting = false;
 
         function pump(key, value) {
@@ -192,9 +192,7 @@
                 done: false,
                 value: awaitWrap(value)
             };
-        }
-
-        ;
+        };
 
         if (typeof Symbol === "function" && Symbol.iterator) {
             iter[Symbol.iterator] = function () {
@@ -233,12 +231,12 @@
 
     babelHelpers.asyncToGenerator = function (fn) {
         return function () {
-            var gen = fn.apply(this, arguments);
+            let gen = fn.apply(this, arguments);
             return new Promise(function (resolve, reject) {
                 function step(key, arg) {
                     try {
-                        var info = gen[key](arg);
-                        var value = info.value;
+                        let info = gen[key](arg);
+                        let value = info.value;
                     } catch (error) {
                         reject(error);
                         return;
@@ -268,8 +266,8 @@
 
     babelHelpers.createClass = function () {
         function defineProperties(target, props) {
-            for (var i = 0; i < props.length; i++) {
-                var descriptor = props[i];
+            for (let i = 0; i < props.length; i++) {
+                let descriptor = props[i];
                 descriptor.enumerable = descriptor.enumerable || false;
                 descriptor.configurable = true;
                 if ("value" in descriptor) descriptor.writable = true;
@@ -285,8 +283,8 @@
     }();
 
     babelHelpers.defineEnumerableProperties = function (obj, descs) {
-        for (var key in descs) {
-            var desc = descs[key];
+        for (let key in descs) {
+            let desc = descs[key];
             desc.configurable = desc.enumerable = true;
             if ("value" in desc) desc.writable = true;
             Object.defineProperty(obj, key, desc);
@@ -296,11 +294,11 @@
     };
 
     babelHelpers.defaults = function (obj, defaults) {
-        var keys = Object.getOwnPropertyNames(defaults);
+        let keys = Object.getOwnPropertyNames(defaults);
 
-        for (var i = 0; i < keys.length; i++) {
-            var key = keys[i];
-            var value = Object.getOwnPropertyDescriptor(defaults, key);
+        for (let i = 0; i < keys.length; i++) {
+            let key = keys[i];
+            let value = Object.getOwnPropertyDescriptor(defaults, key);
 
             if (value && value.configurable && obj[key] === undefined) {
                 Object.defineProperty(obj, key, value);
@@ -326,10 +324,10 @@
     };
 
     babelHelpers.extends = Object.assign || function (target) {
-            for (var i = 1; i < arguments.length; i++) {
-                var source = arguments[i];
+            for (let i = 1; i < arguments.length; i++) {
+                let source = arguments[i];
 
-                for (var key in source) {
+                for (let key in source) {
                     if (Object.prototype.hasOwnProperty.call(source, key)) {
                         target[key] = source[key];
                     }
@@ -341,10 +339,10 @@
 
     babelHelpers.get = function get(object, property, receiver) {
         if (object === null) object = Function.prototype;
-        var desc = Object.getOwnPropertyDescriptor(object, property);
+        let desc = Object.getOwnPropertyDescriptor(object, property);
 
         if (desc === undefined) {
-            var parent = Object.getPrototypeOf(object);
+            let parent = Object.getPrototypeOf(object);
 
             if (parent === null) {
                 return undefined;
@@ -354,7 +352,7 @@
         } else if ("value" in desc) {
             return desc.value;
         } else {
-            var getter = desc.get;
+            let getter = desc.get;
 
             if (getter === undefined) {
                 return undefined;
@@ -381,7 +379,7 @@
     };
 
     babelHelpers.instanceof = function (left, right) {
-        if (right != null && typeof Symbol !== "undefined" && right[Symbol.hasInstance]) {
+        if (right !== null && typeof Symbol !== "undefined" && right[Symbol.hasInstance]) {
             return right[Symbol.hasInstance](left);
         } else {
             return left instanceof right;
@@ -398,10 +396,10 @@
         if (obj && obj.__esModule) {
             return obj;
         } else {
-            var newObj = {};
+            let newObj = {};
 
-            if (obj != null) {
-                for (var key in obj) {
+            if (obj !== null) {
+                for (let key in obj) {
                     if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
                 }
             }
@@ -418,13 +416,13 @@
     };
 
     babelHelpers.objectDestructuringEmpty = function (obj) {
-        if (obj == null) throw new TypeError("Cannot destructure undefined");
+        if (obj === null) throw new TypeError("Cannot destructure undefined");
     };
 
     babelHelpers.objectWithoutProperties = function (obj, keys) {
-        var target = {};
+        let target = {};
 
-        for (var i in obj) {
+        for (let i in obj) {
             if (keys.indexOf(i) >= 0) continue;
             if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;
             target[i] = obj[i];
@@ -444,10 +442,10 @@
     babelHelpers.selfGlobal = typeof global === "undefined" ? self : global;
 
     babelHelpers.set = function set(object, property, value, receiver) {
-        var desc = Object.getOwnPropertyDescriptor(object, property);
+        let desc = Object.getOwnPropertyDescriptor(object, property);
 
         if (desc === undefined) {
-            var parent = Object.getPrototypeOf(object);
+            let parent = Object.getPrototypeOf(object);
 
             if (parent !== null) {
                 set(parent, property, value, receiver);
@@ -455,7 +453,7 @@
         } else if ("value" in desc && desc.writable) {
             desc.value = value;
         } else {
-            var setter = desc.set;
+            let setter = desc.set;
 
             if (setter !== undefined) {
                 setter.call(receiver, value);
@@ -467,13 +465,13 @@
 
     babelHelpers.slicedToArray = function () {
         function sliceIterator(arr, i) {
-            var _arr = [];
-            var _n = true;
-            var _d = false;
-            var _e = undefined;
+            let _arr = [];
+            let _n = true;
+            let _d = false;
+            let _e = undefined;
 
             try {
-                for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+                for (let _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
                     _arr.push(_s.value);
 
                     if (i && _arr.length === i) break;
@@ -507,9 +505,9 @@
         if (Array.isArray(arr)) {
             return arr;
         } else if (Symbol.iterator in Object(arr)) {
-            var _arr = [];
+            let _arr = [];
 
-            for (var _iterator = arr[Symbol.iterator](), _step; !(_step = _iterator.next()).done;) {
+            for (let _iterator = arr[Symbol.iterator](), _step; !(_step = _iterator.next()).done;) {
                 _arr.push(_step.value);
 
                 if (i && _arr.length === i) break;
@@ -550,7 +548,7 @@
 
     babelHelpers.toConsumableArray = function (arr) {
         if (Array.isArray(arr)) {
-            for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];
+            for (let i = 0, arr2 = new Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];
 
             return arr2;
         } else {

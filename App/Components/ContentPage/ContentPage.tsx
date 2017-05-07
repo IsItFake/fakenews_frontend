@@ -6,6 +6,7 @@ import BaseComponent from "./../BaseComponent";
 import Header from "./Header/Header";
 import BodyWrapper from "./BodyWrapper/BodyWrapper";
 import { StoreState } from "../../Store/StoreState";
+import Footer from "./Footer/Footer";
 
 const styles: any = require("./ContentPage.component.less");
 
@@ -19,9 +20,8 @@ class ContentPage extends BaseComponent<IContentPageProps, {}> {
         return (
             <div className={styles.container}>
                 <Header isActive={true} title={"Is It Fake ??"} />
-                <BodyWrapper ref="contentBodyRef" title={this.props.bodyTitle}>
-                    <div className={styles.message}>Tester</div>
-                </BodyWrapper>
+                <BodyWrapper ref="contentBodyRef" title={this.props.bodyTitle} />
+                <Footer />
             </div>
         );
     }

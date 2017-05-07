@@ -4,12 +4,10 @@ import BaseComponent from "./../../BaseComponent";
 
 const styles: any = require("./Header.component.less");
 
-interface IHeaderProps {
-    isActive: boolean;
-    title: string;
-}
-
-export default class Header extends BaseComponent<IHeaderProps, {}> {
+export default class Header extends BaseComponent<{
+    isActive: boolean,
+    title: string,
+}, {}> {
     doRender(): React.ReactElement<{}> {
         if (!this.props.isActive) {
             return null;
